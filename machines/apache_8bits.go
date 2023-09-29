@@ -33,6 +33,14 @@ func (m *Apache8bits) Run(cycles int) {
 }
 
 func NewApache8bits(memory extras.Memory, in *os.File, out io.Writer) *Apache8bits {
+	if in == nil {
+		in = os.Stdin
+	}
+
+	if out == nil {
+		out = os.Stdout
+	}
+
 	machine := &Apache8bits{
 		MEMORY: memory,
 	}
@@ -91,22 +99,11 @@ func NewApache8bits(memory extras.Memory, in *os.File, out io.Writer) *Apache8bi
 		// 1101   | NOT R2     | Bitwise NOT register 2
 		0b1101: func(_ uint8) { machine.REGISTERS[1] = ^machine.REGISTERS[1] },
 		// 1110   | OUT R1     | Outputs register 1
-		0b1110: func(_ uint8) {
-			if out == nil {
-				out = os.Stdout
-			}
-			fmt.Fprintf(out, "%d\n", machine.REGISTERS[0])
-		},
+		0b1110: func(_ uint8) { fmt.Fprintf(out, "%d\n", machine.REGISTERS[0]) },
 		// 1111   | IN         | Input into ADDRESS
 		0b1111: func(idx uint8) {
-			if in == nil {
-				in = os.Stdin
-			}
-			if out == nil {
-				out = os.Stdout
-			}
-			fmt.Fprint(out, "> ")
 			var sVal string
+			fmt.Fprint(out, "> ")
 			fmt.Fscanf(in, "%s", &sVal)
 			machine.MEMORY.Set(idx, utils.CastStringToUint8(sVal, 10))
 		},
