@@ -12,7 +12,7 @@ import (
 // RAM size
 var memorySize int = 16
 
-// RAM (16 words long)
+// RAM (16 bytes long)
 var memory [16]uint8 = [16]uint8{
 	0b00000000,
 	0b00000000,
