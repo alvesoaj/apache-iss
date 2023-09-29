@@ -62,7 +62,7 @@ var instructions map[uint8]func(uint8) = map[uint8]func(uint8){
 	},
 	// 0011   | ADD R1     | Add contents at ADDRESS to register 1
 	0b0011: func(a uint8) { registers[0] += memory[a] },
-	// 0100   | <<R1       | Bitshift register 1 left
+	// 0100   | <<R1       | Bitwise shift register 1 left
 	0b0100: func(a uint8) { registers[0] <<= 1 },
 	// 0101   | NOT R1     | Bitwise NOT register 1
 	0b0101: func(a uint8) { registers[0] = ^registers[0] },
@@ -82,13 +82,13 @@ var instructions map[uint8]func(uint8) = map[uint8]func(uint8){
 	},
 	// 1011   | ADD R2     | Add ADDRESS to register 2
 	0b1011: func(a uint8) { registers[1] += memory[a] },
-	// 1100   | <<R2       | Bitshift register 2 left
+	// 1100   | <<R2       | Bitwise shift register 2 left
 	0b1100: func(a uint8) { registers[1] <<= 1 },
 	// 1101   | NOT R2     | Bitwise NOT register 2
 	0b1101: func(a uint8) { registers[1] = ^registers[1] },
 	// 1110   | OUT R1     | Outputs register 1
 	0b1110: func(a uint8) { fmt.Println(registers[0]) },
-	// 1111   |            |
+	// 1111   | IN         | Input into ADDRESS
 	0b1111: func(a uint8) {
 		fmt.Print("> ")
 		reader := bufio.NewReader(os.Stdin)
