@@ -55,7 +55,7 @@ func NewMemory16x8bits() *Memory16x8bits {
 	// RAM size (5 bits), 16 spaces
 	const size uint8 = 0b10000
 
-	// RAM (16 words long)
+	// RAM (16 bytes long)
 	var memory [size]uint8 = [size]uint8{
 		0b00000000,
 		0b00000000,
