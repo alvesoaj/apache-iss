@@ -68,7 +68,7 @@ var instructions map[uint8]func(uint8) = map[uint8]func(uint8){
 	0b0101: func(a uint8) { registers[0] = ^registers[0] },
 	// 0110   | JUMP       | Jump to line OPERAND
 	0b0110: func(a uint8) { pc = a },
-	// 0111   | stop       | Terminate the program (NOP).
+	// 0111   | STOP       | Terminate the program (NOP).
 	0b0111: func(a uint8) { stop = 0b1 },
 	// 1000   | LOAD R2    | Load the ADDRESS into register 2
 	0b1000: func(a uint8) { registers[1] = memory[a] },

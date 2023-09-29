@@ -68,13 +68,13 @@ func NewApache8bits(memory extras.Memory) *Apache8bits {
 		// 0011   | ADD R1     | Add contents at ADDRESS to register 1
 		0b0011: func(idx uint8) { machine.REGISTERS[0] += utils.CastInterfaceToUint8(machine.MEMORY.Get(idx)) },
 		// 0100   | <<R1       | Bitwise shift register 1 left
-		0b0100: func(idx uint8) { machine.REGISTERS[0] <<= 1 },
+		0b0100: func(_ uint8) { machine.REGISTERS[0] <<= 1 },
 		// 0101   | NOT R1     | Bitwise NOT register 1
-		0b0101: func(idx uint8) { machine.REGISTERS[0] = ^machine.REGISTERS[0] },
+		0b0101: func(_ uint8) { machine.REGISTERS[0] = ^machine.REGISTERS[0] },
 		// 0110   | JUMP       | Jump to line OPERAND
 		0b0110: func(idx uint8) { machine.PC = idx },
-		// 0111   | stop       | Terminate the program (NOP).
-		0b0111: func(idx uint8) { machine.STOP = 0b1 },
+		// 0111   | STOP       | Terminate the program (NOP).
+		0b0111: func(_ uint8) { machine.STOP = 0b1 },
 		// 1000   | LOAD R2    | Load the ADDRESS into register 2
 		0b1000: func(idx uint8) { machine.REGISTERS[1] = utils.CastInterfaceToUint8(machine.MEMORY.Get(idx)) },
 		// 1001   | STORE R2   | Store contents of register 2 into ADDRESS
@@ -88,11 +88,11 @@ func NewApache8bits(memory extras.Memory) *Apache8bits {
 		// 1011   | ADD R2     | Add ADDRESS to register 2
 		0b1011: func(idx uint8) { machine.REGISTERS[1] += utils.CastInterfaceToUint8(machine.MEMORY.Get(idx)) },
 		// 1100   | <<R2       | Bitwise shift register 2 left
-		0b1100: func(idx uint8) { machine.REGISTERS[1] <<= 1 },
+		0b1100: func(_ uint8) { machine.REGISTERS[1] <<= 1 },
 		// 1101   | NOT R2     | Bitwise NOT register 2
-		0b1101: func(idx uint8) { machine.REGISTERS[1] = ^machine.REGISTERS[1] },
+		0b1101: func(_ uint8) { machine.REGISTERS[1] = ^machine.REGISTERS[1] },
 		// 1110   | OUT R1     | Outputs register 1
-		0b1110: func(idx uint8) { fmt.Println(machine.REGISTERS[0]) },
+		0b1110: func(_ uint8) { fmt.Println(machine.REGISTERS[0]) },
 		// 1111   | IN         | Input into ADDRESS
 		0b1111: func(idx uint8) {
 			fmt.Print("> ")
