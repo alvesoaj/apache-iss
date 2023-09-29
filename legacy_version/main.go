@@ -10,10 +10,10 @@ import (
 )
 
 // RAM size
-var memorySize int = 16
+const memorySize int = 16
 
 // RAM (16 bytes long)
-var memory [16]uint8 = [16]uint8{
+var memory [memorySize]uint8 = [memorySize]uint8{
 	0b00000000,
 	0b00000000,
 	0b00000000,
@@ -102,16 +102,6 @@ var instructions map[uint8]func(uint8) = map[uint8]func(uint8){
 
 var nonNumericRegex = regexp.MustCompile(`[^0-9]+`)
 
-func main() {
-	var programName string = os.Args[1]
-	var cycles int = int(castStringToUint8(os.Args[2], 10))
-
-	loadProgram(programName)
-	run(cycles)
-
-	fmt.Println("process finished")
-}
-
 func run(cycles int) {
 	for stop == 0b0 && cycles > 0 {
 		cycles--
@@ -155,4 +145,14 @@ func castStringToUint8(sVal string, base int) uint8 {
 	}
 
 	return uint8(nVal)
+}
+
+func main() {
+	var programName string = os.Args[1]
+	var cycles int = int(castStringToUint8(os.Args[2], 10))
+
+	loadProgram(programName)
+	run(cycles)
+
+	fmt.Println("process finished")
 }
