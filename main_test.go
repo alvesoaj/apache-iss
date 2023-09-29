@@ -4,13 +4,13 @@ import (
 	"bytes"
 	"io"
 	"os"
-	"strings"
 	"testing"
 
 	"github.com/stretchr/testify/assert"
 
 	"apache-instruction-set-simulator/extras"
 	"apache-instruction-set-simulator/machines"
+	"apache-instruction-set-simulator/utils"
 )
 
 func TestApache8bits(t *testing.T) {
@@ -55,7 +55,7 @@ func TestApache8bits(t *testing.T) {
 			var machine *machines.Apache8bits = machines.NewApache8bits(memory, in, &out)
 			machine.Run(testCase.cycles)
 
-			assert.Equal(t, testCase.output, strings.TrimSpace(out.String()))
+			assert.Equal(t, testCase.output, utils.RemoveAllNonNumericFromString(out.String()))
 		})
 	}
 }

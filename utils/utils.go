@@ -9,7 +9,7 @@ import (
 var nonNumericRegex = regexp.MustCompile(`[^0-9]+`)
 
 func CastStringToUint8(sVal string, base int) uint8 {
-	sVal = nonNumericRegex.ReplaceAllString(sVal, "")
+	sVal = RemoveAllNonNumericFromString(sVal)
 	nVal, err := strconv.ParseInt(sVal, base, 64)
 	if err != nil {
 		log.Fatalf("Parsing string to int error: %+v", err)
@@ -24,4 +24,8 @@ func CastInterfaceToUint8(iVal interface{}) uint8 {
 		log.Fatalf("Casting uint8 error, val: %+v", iVal)
 	}
 	return nVal
+}
+
+func RemoveAllNonNumericFromString(sVal string) string {
+	return nonNumericRegex.ReplaceAllString(sVal, "")
 }

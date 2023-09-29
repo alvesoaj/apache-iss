@@ -102,7 +102,10 @@ func NewApache8bits(memory extras.Memory, in *os.File, out io.Writer) *Apache8bi
 			if in == nil {
 				in = os.Stdin
 			}
-			fmt.Print("> ")
+			if out == nil {
+				out = os.Stdout
+			}
+			fmt.Fprint(out, "> ")
 			var sVal string
 			fmt.Fscanf(in, "%s", &sVal)
 			machine.MEMORY.Set(idx, utils.CastStringToUint8(sVal, 10))
