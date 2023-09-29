@@ -1,0 +1,7 @@
+{
+  "editor.copyWithSyntaxHighlighting": false,
+  "go.testTimeout": "600s",
+  "go.testEnvVars": {
+    "CYCLES": "999"
+  }
+}
