@@ -10,7 +10,8 @@
       "request": "launch",
       "mode": "debug",
       "program": "${workspaceRoot}/main.go",
-      "args": ["fibonaci.txt", "32"]
+      "args": ["square.txt", "75"],
+      "console": "integratedTerminal"
     },
     {
       "name": "Debug Legacy",

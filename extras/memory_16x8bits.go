@@ -51,7 +51,7 @@ func (m *Memory16x8bits) LoadProgram(programName string) {
 	}
 }
 
-func NewMemory16x8bits() Memory16x8bits {
+func NewMemory16x8bits() *Memory16x8bits {
 	// RAM size (5 bits), 16 spaces
 	const size uint8 = 0b10000
 
@@ -75,7 +75,7 @@ func NewMemory16x8bits() Memory16x8bits {
 		0b00000000,
 	}
 
-	return Memory16x8bits{
+	return &Memory16x8bits{
 		MEMORY: memory,
 		SIZE:   size,
 	}

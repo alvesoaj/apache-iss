@@ -33,8 +33,8 @@ func (m *Apache8bits) Run(cycles int) {
 	}
 }
 
-func NewApache8bits(memory extras.Memory) Apache8bits {
-	machine := Apache8bits{
+func NewApache8bits(memory extras.Memory) *Apache8bits {
+	machine := &Apache8bits{
 		MEMORY: memory,
 	}
 
