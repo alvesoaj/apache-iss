@@ -32,19 +32,19 @@ var memory [memorySize]uint8 = [memorySize]uint8{
 	0b00000000,
 }
 
-// 2 General Purpose Registers (1 byte each)
+// 2 General Purpose Registers (1 byte long each)
 var registers [2]uint8 = [2]uint8{
 	0b00000000,
 	0b00000000,
 }
 
-// Program Counter (It is [should be seen as] a 4 bits Special Purpose Register)
+// Program Counter (4 bits [should be seen as a] long Special Purpose Register, max memory of 16 spaces)
 var pc uint8 = 0b0000
 
-// Current Instruction Register (It is [should be seen as] a 1 byte long)
+// Current Instruction Register (1 byte long Special Purpose Register)
 var cir uint8 = 0b00000000
 
-// Stop Register (It is [should be seen as] a 1 bite long)
+// Stop Register (1 bit [should be seen as a] long Special Purpose Register)
 var stop uint8 = 0b0
 
 // MASIC Instruction Set

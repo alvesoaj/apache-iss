@@ -58,3 +58,35 @@ func Test_ClearOutputForTesting(t *testing.T) {
 	val := ClearOutputForTesting("> 100")
 	assert.Equal(t, "100", val)
 }
+
+func Test_CastStringToUint16(t *testing.T) {
+	testCases := map[string]struct {
+		sVal     string
+		base     int
+		expected uint16
+	}{
+		"base 10": {
+			sVal:     "8772",
+			base:     10,
+			expected: 8772,
+		},
+		"base 2": {
+			sVal:     "10001001000100",
+			base:     2,
+			expected: 8772,
+		},
+	}
+
+	for name, testCase := range testCases {
+		t.Run(name, func(t *testing.T) {
+			val := CastStringToUint16(testCase.sVal, testCase.base)
+			assert.Equal(t, testCase.expected, val)
+		})
+	}
+}
+
+func Test_CastInterfaceToUint16(t *testing.T) {
+	var i interface{} = uint16(8772)
+	val := CastInterfaceToUint16(i)
+	assert.Equal(t, uint16(8772), val)
+}

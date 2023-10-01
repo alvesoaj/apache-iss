@@ -16,7 +16,7 @@ func CastStringToUint8(sVal string, base int) uint8 {
 	sVal = RemoveAllNonNumericFromString(sVal)
 	nVal, err := strconv.ParseInt(sVal, base, 64)
 	if err != nil {
-		log.Fatalf("Parsing string to int error: %+v", err)
+		log.Fatalf("Parsing string to uint8 error: %+v", err)
 	}
 
 	return uint8(nVal)
@@ -60,4 +60,22 @@ func NewTestOutput() bytes.Buffer {
 
 func ClearOutputForTesting(sVal string) string {
 	return strings.Replace(sVal, "> ", "", 3)
+}
+
+func CastStringToUint16(sVal string, base int) uint16 {
+	sVal = RemoveAllNonNumericFromString(sVal)
+	nVal, err := strconv.ParseInt(sVal, base, 64)
+	if err != nil {
+		log.Fatalf("Parsing string to uint16 error: %+v", err)
+	}
+
+	return uint16(nVal)
+}
+
+func CastInterfaceToUint16(iVal interface{}) uint16 {
+	nVal, ok := iVal.(uint16)
+	if !ok {
+		log.Fatalf("Casting uint16 error, val: %+v", iVal)
+	}
+	return nVal
 }

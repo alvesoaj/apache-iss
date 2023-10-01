@@ -19,4 +19,6 @@ func Test_Memory16x8bits(t *testing.T) {
 
 	memory.Set(uint8(3), uint8(8))
 	assert.Equal(t, uint8(8), memory.Get(uint8(3)))
+
+	assert.Equal(t, memory.SIZE, memory.Size())
 }

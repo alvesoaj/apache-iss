@@ -3,21 +3,28 @@ package machines
 import (
 	"fmt"
 	"io"
+	"log"
 	"os"
 
 	"apache-instruction-set-simulator/extras"
 	"apache-instruction-set-simulator/utils"
 )
 
+const apache8bitsMaxPCbits uint8 = 0b1111
+
 type Apache8bits struct {
-	REGISTERS    [2]uint8              // 2 General Purpose Registers (1 byte each)
-	PC           uint8                 // Program Counter (It is [should be seen as] a 4 bits Special Purpose Register)
-	CIR          uint8                 // Current Instruction Register (It is [should be seen as] a 1 byte long Special Purpose Register)
-	STOP         uint8                 // Stop Register (It is [should be seen as] a 1 bite long Special Purpose Register)
+	REGISTERS    [2]uint8              // 2 General Purpose Registers (1 byte long each)
+	PC           uint8                 // Program Counter (4 bits [should be seen as a] long Special Purpose Register, max memory of 16 spaces)
+	CIR          uint8                 // Current Instruction Register (1 byte long Special Purpose Register)
+	STOP         uint8                 // Stop Register (1 bit [should be seen as a] long Special Purpose Register)
 	INSTRUCTIONS map[uint8]func(uint8) // MASIC Instruction Set
 	MEMORY       extras.Memory
 }
 
+// it will break the 8 bits in 2 pieces
+// first 4 bits are for command and the last 4 for index
+// cmd  idx
+// 0000 0000
 func (m *Apache8bits) Run(cycles int) {
 	for m.STOP == 0b0 && cycles > 0 {
 		cycles--
@@ -41,26 +48,30 @@ func NewApache8bits(memory extras.Memory, in *os.File, out io.Writer) *Apache8bi
 		out = os.Stdout
 	}
 
+	if !(utils.CastInterfaceToUint8(memory.Size()) <= apache8bitsMaxPCbits) {
+		log.Fatalf("Memory is too big, max is: %d", apache8bitsMaxPCbits)
+	}
+
 	machine := &Apache8bits{
 		MEMORY: memory,
 	}
 
-	// 2 General Purpose Registers (1 byte each)
+	// 2 General Purpose Registers
 	machine.REGISTERS = [2]uint8{
 		0b00000000,
 		0b00000000,
 	}
 
-	// Program Counter (It is [should be seen as] a 4 bits Special Purpose Register)
+	// Program Counter
 	machine.PC = 0b0000
 
-	// Current Instruction Register (It is [should be seen as] a 1 byte long)
+	// Current Instruction Register
 	machine.CIR = 0b00000000
 
-	// Stop Register (It is [should be seen as] a 1 bite long)
+	// Stop Register
 	machine.STOP = 0b0
 
-	// BINARY | OPCODE     | COMMENT
+	//     BINARY | OPCODE     | COMMENT
 	machine.INSTRUCTIONS = map[uint8]func(uint8){
 		// 0000   | LOAD R0    | Load the ADDRESS into register 0
 		0b0000: func(idx uint8) { machine.REGISTERS[0] = utils.CastInterfaceToUint8(machine.MEMORY.Get(idx)) },

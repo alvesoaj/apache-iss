@@ -32,6 +32,10 @@ func (m *Memory3x8bits) Set(idx interface{}, val interface{}) {
 	m.MEMORY[i] = v
 }
 
+func (m *Memory3x8bits) Size() interface{} {
+	return m.SIZE
+}
+
 func (m *Memory3x8bits) LoadProgram(program string) {
 	pieces := strings.Split(program, "\n")
 	for idx, piece := range pieces {

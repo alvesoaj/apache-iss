@@ -34,6 +34,10 @@ func (m *Memory16x8bits) Set(idx interface{}, val interface{}) {
 	m.MEMORY[i] = v
 }
 
+func (m *Memory16x8bits) Size() interface{} {
+	return m.SIZE
+}
+
 func (m *Memory16x8bits) LoadProgram(programName string) {
 	content, err := os.Open(fmt.Sprintf("./programs/%s", programName))
 	if err != nil {
