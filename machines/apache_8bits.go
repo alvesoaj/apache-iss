@@ -12,8 +12,8 @@ import (
 type Apache8bits struct {
 	REGISTERS    [2]uint8              // 2 General Purpose Registers (1 byte each)
 	PC           uint8                 // Program Counter (It is [should be seen as] a 4 bits Special Purpose Register)
-	CIR          uint8                 // Current Instruction Register (1 byte long Special Purpose Register)
-	STOP         uint8                 // Stop Register (1 bite long Special Purpose Register)
+	CIR          uint8                 // Current Instruction Register (It is [should be seen as] a 1 byte long Special Purpose Register)
+	STOP         uint8                 // Stop Register (It is [should be seen as] a 1 bite long Special Purpose Register)
 	INSTRUCTIONS map[uint8]func(uint8) // MASIC Instruction Set
 	MEMORY       extras.Memory
 }
