@@ -15,16 +15,22 @@ func Test_Apache8bits_Against_Programs(t *testing.T) {
 		programName, input, output string
 		cycles                     int
 	}{
-		"square.txt": {
-			programName: "square.txt",
-			input:       "5\n",
-			output:      "25\n",
-			cycles:      999,
-		},
 		"sum.txt": {
 			programName: "sum.txt",
 			input:       "25\n" + "25\n",
 			output:      "50\n",
+			cycles:      999,
+		},
+		"sub.txt": {
+			programName: "sub.txt",
+			input:       "99\n" + "33\n",
+			output:      "66\n",
+			cycles:      999,
+		},
+		"square.txt": {
+			programName: "square.txt",
+			input:       "5\n",
+			output:      "25\n",
 			cycles:      999,
 		},
 		"fibonacci.txt": {
