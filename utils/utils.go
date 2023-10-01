@@ -1,9 +1,13 @@
 package utils
 
 import (
+	"bytes"
+	"io"
 	"log"
+	"os"
 	"regexp"
 	"strconv"
+	"strings"
 )
 
 var nonNumericRegex = regexp.MustCompile(`[^0-9]+`)
@@ -28,4 +32,32 @@ func CastInterfaceToUint8(iVal interface{}) uint8 {
 
 func RemoveAllNonNumericFromString(sVal string) string {
 	return nonNumericRegex.ReplaceAllString(sVal, "")
+}
+
+func NewTestInput(input string) (*os.File, error) {
+	in, err := os.CreateTemp("", "")
+	if err != nil {
+		return nil, err
+	}
+
+	if _, err := io.WriteString(in, input); err != nil {
+		in.Close()
+		return nil, err
+	}
+
+	if _, err := in.Seek(0, io.SeekStart); err != nil {
+		in.Close()
+		return nil, err
+	}
+
+	return in, nil
+}
+
+func NewTestOutput() bytes.Buffer {
+	var out bytes.Buffer
+	return out
+}
+
+func ClearOutputForTesting(sVal string) string {
+	return strings.Replace(sVal, "> ", "", 3)
 }

@@ -9,8 +9,11 @@ import (
 	"apache-instruction-set-simulator/utils"
 )
 
+// RAM size (5 bits), 16 spaces
+const memory16x8bitsSize uint8 = 0b10000
+
 type Memory16x8bits struct {
-	MEMORY [16]uint8
+	MEMORY [memory16x8bitsSize]uint8
 	SIZE   uint8
 }
 
@@ -52,11 +55,13 @@ func (m *Memory16x8bits) LoadProgram(programName string) {
 }
 
 func NewMemory16x8bits() *Memory16x8bits {
-	// RAM size (5 bits), 16 spaces
-	const size uint8 = 0b10000
+	device := &Memory16x8bits{}
+
+	// set size
+	device.SIZE = memory16x8bitsSize
 
 	// RAM (16 bytes long)
-	var memory [size]uint8 = [size]uint8{
+	device.MEMORY = [memory16x8bitsSize]uint8{
 		0b00000000,
 		0b00000000,
 		0b00000000,
@@ -75,8 +80,5 @@ func NewMemory16x8bits() *Memory16x8bits {
 		0b00000000,
 	}
 
-	return &Memory16x8bits{
-		MEMORY: memory,
-		SIZE:   size,
-	}
+	return device
 }

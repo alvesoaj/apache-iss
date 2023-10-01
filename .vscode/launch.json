@@ -10,7 +10,7 @@
       "request": "launch",
       "mode": "debug",
       "program": "${workspaceRoot}/main.go",
-      "args": ["square.txt", "75"],
+      "args": ["square.txt", "999"],
       "console": "integratedTerminal"
     },
     {
@@ -19,7 +19,7 @@
       "request": "launch",
       "mode": "debug",
       "program": "${workspaceRoot}/legacy_version/main.go",
-      "args": ["fibonaci.txt", "32"],
+      "args": ["fibonacci.txt", "44"],
       "cwd": "${workspaceRoot}"
     }
   ]
