@@ -10,7 +10,7 @@ import (
 	"apache-instruction-set-simulator/utils"
 )
 
-const apache16bitsMaxPCbits uint16 = 0b1111111111
+const apache16bitsMaxPCbits uint16 = 0b10000000000
 
 type Apache16bits struct {
 	REGISTERS    [4]uint16                     // 2 General Purpose Registers (1 word each)

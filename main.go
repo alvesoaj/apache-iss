@@ -6,11 +6,18 @@ import (
 	"os"
 	"strconv"
 
+	"github.com/joho/godotenv"
+
 	"apache-instruction-set-simulator/extras"
 	"apache-instruction-set-simulator/machines"
 )
 
 func main() {
+	err := godotenv.Load(".env")
+	if err != nil {
+		log.Fatalf("Load env error: %+v", err)
+	}
+
 	var programName string = os.Args[1]
 	if programName == "" {
 		log.Fatal("programName param was not provided")

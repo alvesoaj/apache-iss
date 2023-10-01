@@ -10,7 +10,7 @@ import (
 	"apache-instruction-set-simulator/utils"
 )
 
-const apache8bitsMaxPCbits uint8 = 0b1111
+const apache8bitsMaxPCbits uint8 = 0b10000
 
 type Apache8bits struct {
 	REGISTERS    [2]uint8              // 2 General Purpose Registers (1 byte long each)
